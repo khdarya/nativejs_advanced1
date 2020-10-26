@@ -67,19 +67,23 @@ const CurrencyEContainer: React.FunctionComponent = (
       if (trigger === 'byn') {
         if (value === '') {
           //setCurrencyAmount(value, value);
-          changeCurrencyFieldAC(value, value);
-          dispatch(changeCurrencyFieldAC(value, value));
+          //changeCurrencyFieldAC(value, value);
+          //dispatch(changeCurrencyFieldAC(value, value));
+          dispatch(changeCurrencyFieldAC({ amountOfBYN: value, amountOfCurrency: value }));
         } else {
           //setCurrencyAmount(value, (+Number(value).toFixed(2) / currencyRate).toFixed(2));
-          dispatch(changeCurrencyFieldAC(value, (+Number(value).toFixed(2) / currencyRate).toFixed(2)));
+          //dispatch(changeCurrencyFieldAC(value, (+Number(value).toFixed(2) / currencyRate).toFixed(2)));
+          dispatch(changeCurrencyFieldAC({amountOfBYN: value, amountOfCurrency: (+Number(value).toFixed(2) / currencyRate).toFixed(2)}));
         }
       } else {
         if (value === '') {
           //setCurrencyAmount(value, value);
-          dispatch(changeCurrencyFieldAC(value, value));
+          //dispatch(changeCurrencyFieldAC(value, value));
+          dispatch(changeCurrencyFieldAC({ amountOfBYN: value, amountOfCurrency: value }));
         } else {
           //setCurrencyAmount((+Number(value).toFixed(2) * currencyRate).toFixed(2), value);
-          dispatch(changeCurrencyFieldAC((+Number(value).toFixed(2) * currencyRate).toFixed(2), value));
+          //dispatch(changeCurrencyFieldAC((+Number(value).toFixed(2) * currencyRate).toFixed(2), value));
+          dispatch(changeCurrencyFieldAC({amountOfBYN:(+Number(value).toFixed(2) * currencyRate).toFixed(2), amountOfCurrency: value}));
         }
       }
     }
@@ -87,12 +91,14 @@ const CurrencyEContainer: React.FunctionComponent = (
   const changeAction = (e: React.MouseEvent<HTMLSpanElement>) => {
     //e.currentTarget.dataset.action === 'buy' ? setAction(true) : setAction(false);
     //e.currentTarget.dataset.action === 'buy' ? changeActionAC(true) : changeActionAC(false);
-    dispatch(changeActionAC(e.currentTarget.dataset.action === 'buy' ));
+    //dispatch(changeActionAC(e.currentTarget.dataset.action === 'buy' ));
+    dispatch(changeActionAC({isBuying: e.currentTarget.dataset.action === 'buy' }));
   };
 
   const changeCurrentCurrency = (e: React.MouseEvent<HTMLLIElement>) => {
     //e.currentTarget.dataset.currency && changeCurrency(e.currentTarget.dataset.currency);
-    e.currentTarget.dataset.currency && dispatch(changeCurrentCurrencyAC(e.currentTarget.dataset.currency));
+    //e.currentTarget.dataset.currency && dispatch(changeCurrentCurrencyAC(e.currentTarget.dataset.currency));
+    e.currentTarget.dataset.currency && dispatch(changeCurrentCurrencyAC({currentCurrency: e.currentTarget.dataset.currency}));
   };
 
   return (
