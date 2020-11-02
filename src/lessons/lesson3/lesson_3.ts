@@ -1,3 +1,11 @@
+import axios from 'axios';
+
+const config = {
+    baseURL: 'https://jsonplaceholder.typicode.com/',
+};
+
+const axiosInst = axios.create(config);
+
 console.log('lesson 3');
 
 // Event loop
@@ -12,6 +20,18 @@ console.log('lesson 3');
 
 
 // 'https://jsonplaceholder.typicode.com/posts/1'
+
+const prom = axiosInst.get('posts');
+//console.log(prom);
+//prom.then( res => console.log(res));
+
+console.log(axiosInst.post('posts', {
+    title: 'Buzz',
+    body: 'Fuzz',
+    userId: 1,
+}).then(res => console.log(res)));
+
+
 
 
 // just a plug

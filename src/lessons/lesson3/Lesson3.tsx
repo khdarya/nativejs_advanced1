@@ -4,17 +4,41 @@ import './lesson_3';
 
 const Lesson3 = () => {
     const [searchName, setSearchName] = useState('');
-    const [serachResult, setSerachResult] = useState('');
+    const [searchResult, setSearchResult] = useState('');
     const [searchNameByType, setSearchNameByType] = useState('');
-    const [serachResultByType, setSerachResultByType] = useState('');
+    const [searchResultByType, setSearchResultByType] = useState('');
 
     const searchFilm = () => {
         API.searchFilmsByTitle(searchName)
+            .then(res => {
+                if(res.data.Response === 'True') {
+                    setSearchResult(JSON.stringify(res.data.Search));
+                } else {
+                    console.log(res.data)
+                    setSearchResult(res.data.Error);
+                }
+            });
     };
 
-    const searchByType = (e: React.MouseEvent<HTMLButtonElement>) => {
-        const type: string = e.currentTarget.dataset.t ? e.currentTarget.dataset.t : '';
-        API.searchFilmsByType(searchNameByType, type)
+    const searchByType = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        try {
+            const type: string = e.currentTarget.dataset.t ? e.currentTarget.dataset.t : '';
+            const result = await API.searchFilmsByType(searchNameByType, type);
+            result.data.Response === 'True'
+                ? setSearchResultByType(JSON.stringify(result.data.Search))
+                : setSearchResultByType(result.data.Error);
+        } catch (e) {
+        }
+        // API.searchFilmsByType(searchNameByType, type)
+        //     .then(res => {
+        //         if(res.data.Response === 'True') {
+        //             setSearchResultByType(JSON.stringify(res.data.Search));
+        //         } else {
+        //             console.log(res.data)
+        //             setSearchResultByType(res.data.Error);
+        //         }
+        //     });
+
     }
 
     return (
@@ -25,7 +49,7 @@ const Lesson3 = () => {
                 <input type="text" value={searchName} onChange={(e) => setSearchName(e.currentTarget.value)}/>
                 <button onClick={searchFilm}>Search</button>
                 <div>
-                    {serachResult}
+                    {searchResult}
                 </div>
             </div>
 
@@ -35,7 +59,7 @@ const Lesson3 = () => {
                 <button onClick={searchByType} data-t='movie'>Movie</button>
                 <button onClick={searchByType} data-t='series'>Series</button>
                 <div>
-                    {serachResultByType}
+                    {searchResultByType}
                 </div>
             </div>
         </div>
