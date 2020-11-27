@@ -1,5 +1,3 @@
-import { log } from 'util';
-
 console.log('lesson 4');
 
 //Task 1
