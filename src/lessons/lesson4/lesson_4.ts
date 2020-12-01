@@ -1,14 +1,14 @@
 console.log('lesson 4');
 
 //Task 1
-
 setTimeout(()=> console.log(1), 0);
 console.log(2);
 (() => console.log(3))();
 Promise.resolve(console.log(4));
+//2,3,4,1
+
 
 //Task 2
-
 new Promise((res, rej) => {
     console.log(1);
 })
@@ -18,9 +18,10 @@ new Promise((res, rej) => {
 Promise.resolve(setTimeout(()=> console.log(3), 0));
 console.log(4);
 Promise.reject(console.log(5));
+//1.4.5.2.3
+
 
 //Task 3
-
 (function(){
     setTimeout(()=> console.log(1), 100);
 })();
@@ -32,6 +33,7 @@ function f() {
     console.log(4);
 }
 Promise.resolve(console.log(5));
+// 2.5.3.1
 
 //Task 4
 
@@ -48,7 +50,7 @@ new Promise((res, rej) => {
     console.log(4);
 });
 setTimeout(b, 0, 5);
-
+// 2, 3,4, 1, 5
 
 
 
@@ -60,8 +62,25 @@ setTimeout(b, 0, 5);
 //        rej([5,2,3]);
 //    }
 // });
-// //@ts-ignore
+
+
 // pr.finally(dt => dt).then(data => console.log(data), err => console.log(err))
+
+// //pr.then(res => console.log(res));
+// //pr.then(res => console.log(res).catch(err => console/log(err));
+// //pr.then(function (data) {console.log(data)});
+// //@ts-ignore
+
+
+//pr.then(data => console.log(data), err => console/log(err))
+//   .then(data => console.log(data), err => console/log(err))
+//   .then(data => console.log(data), err => console/log(err))
+
+//pr.then(data => console.log(data)
+//   .catch(err => console.log(err))
+//    .then(data => console.log(data)
+//   .catch(err => console.log(err))
+//   .finally(dt => console.log(dt))
 
 
 
@@ -136,8 +155,9 @@ const handelPromise: testObjType = {
 
 export const createPromise = () => {
     //handelPromise.promise = new Promise((res,rej) => {
-    const somePromise: Promise<any> = new Promise((res,rej) => {
-        handelPromise.resolve = res;
+    const somePromise: Promise<any> = new Promise((res,rej) => {   //созд перем в кот запускается промис
+        handelPromise.resolve = res;   //присваивание значение свойства объекта: с ключом resolve копируем ссылку на ф-ю, кот явл колбеком объекта promise
+        //копируем ф-ю и присваиваем объекту
         handelPromise.reject = rej;
     });
     handelPromise.promise = somePromise;
